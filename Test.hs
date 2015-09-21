@@ -1,2 +1,4 @@
-module null.Test where
+module Test where
+
+sayHello = putStrLn "Hello World from module test"
 
