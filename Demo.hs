@@ -13,11 +13,6 @@ twoDigits2Int x y = if isDigit x && isDigit y
 dist :: (Double, Double) -> (Double, Double) -> Double
 dist x y = sqrt((fst x - fst y)^2 + (snd x - snd y)^2)
 
-
---factorial :: Int -> Int
---factorial 0 = 0
---factorial n = factorial (n-1)
-
 doubleFact :: Integer -> Integer
 doubleFact 0 = 1
 doubleFact 1 = 1
@@ -52,26 +47,6 @@ help :: Integer -> Integer -> Integer -> Integer
 help acc1 acc2 n = if (n == 0) then acc1 else help acc2 (acc1 + acc2) (n-1)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+--> take 30 $ fix ((1:) . scanl (+) 1)
+--[1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,6765,10946,17711,28657,46368,75025,121393,196418,317811,514229,832040]
 
