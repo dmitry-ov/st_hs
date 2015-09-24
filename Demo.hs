@@ -31,11 +31,11 @@ factorial n | n == 0    = 1
             | otherwise = error "arg must be >=0"
 
 
---factorial5 n | n > 0 = helper 1 n
---             | otherwise = error "arg must be >= 0"
+factorial5 n | n > 0 = helper 1 n
+             | otherwise = error "arg must be >= 0"
 
---helper acc 0 = acc
---helper acc n = helper (acc * n) (n-1)
+helper acc 0 = acc
+helper acc n = helper (acc * n) (n-1)
 
 
 fibonacci :: Integer -> Integer
@@ -47,9 +47,6 @@ fibonacci n | n > 0     =  help 0 1 n
             | n < 0  = if even n
                        then (-1) * help 0 1 (abs n)
                        else help 0 1 (abs n)
-
---fibonacci 10 = 55
---fibonacci (-10) = (-55)
 
 help :: Integer -> Integer -> Integer -> Integer
 help acc1 acc2 n = if (n == 0) then acc1 else help acc2 (acc1 + acc2) (n-1)
