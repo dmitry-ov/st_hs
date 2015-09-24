@@ -46,7 +46,56 @@ fibonacci n | n > 0     =  help 0 1 n
 help :: Integer -> Integer -> Integer -> Integer
 help acc1 acc2 n = if (n == 0) then acc1 else help acc2 (acc1 + acc2) (n-1)
 
-
---> take 30 $ fix ((1:) . scanl (+) 1)
+-- take 30 $ fix ((1:) . scanl (+) 1)
 --[1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,6765,10946,17711,28657,46368,75025,121393,196418,317811,514229,832040]
+
+
+--Реализуйте функцию seqA, находящую элементы следующей рекуррентной последовательности
+--a0=1; a1=2; a2=3; ak+3=ak+2+ak+1−2ak.
+
+--seqA 301
+--1276538859311178639666612897162414
+--Попытайтесь найти эффективное решение.
+
+seqA :: Integer -> Integer
+seqA n | n == 0    = 1
+       | n == 1    = 2
+       | n == 2    = 3
+       | n > 2     =  let
+                        recurrently acc1 acc2 acc3 n = if (n == 0)
+                                                       then acc1
+                                                       else recurrently acc2 acc3 ((acc3 + acc2) - 2*acc1) (n-1)
+                      in recurrently 1 2 3 n
+
+--recurrently acc1 acc2 acc3 n = if (n == 0) then acc1 else recurrently acc2 acc3 ((acc3 + acc2) - 2*acc1) (n-1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

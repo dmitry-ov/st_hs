@@ -1,11 +1,10 @@
---module Test where
+--Реализуйте функцию seqA, находящую элементы следующей рекуррентной последовательности
 
---sayHello = putStrLn "Hello World from module test"
---
---discount :: Double -> Double -> Double -> Double
---discount limit proc sum = if sum >= limit then sum * (100 - proc) / 100 else sum
+--a0=1; a1=2; a2=3; ak+3=ak+2+ak+1−2ak.
 
---standardDiscount :: Double -> Double
---standardDiscount = discount 1000 5
+--seqA 301
+--1276538859311178639666612897162414
+--Попытайтесь найти эффективное решение.
+
 
 
