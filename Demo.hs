@@ -52,7 +52,7 @@ help acc1 acc2 n = help acc2 (acc1 + acc2) (n-1)
 --a0=1; a1=2; a2=3; ak+3=ak+2+ak+1−2ak.
 
 --seqA 301
---1276538859311178639666612897162414
+--12765388593111786396666º12897162414
 --Попытайтесь найти эффективное решение.
 
 seqA :: Integer -> Integer
@@ -63,3 +63,37 @@ seqA n | n == 0 = 1
                      recurrently acc1 acc2 acc3 0 = acc1
                      recurrently acc1 acc2 acc3 n = recurrently acc2 acc3 ((acc3 + acc2) - 2*acc1) (n-1)
                    in recurrently 1 2 3 n
+
+
+sum'n'count :: Integer -> (Integer, Integer)
+sum'n'count x = (sumd $ abs x, count $ abs x) where
+    count :: Integer -> Integer
+    count x = length' $ show x
+
+    sumd :: Integer -> Integer
+    sumd 0 = 0
+    sumd x = (x `mod` 10) + sumd (x `div` 10)
+
+    length' :: [a] -> Integer
+    length' [] = 0
+    length' (x:xs) = length' xs + 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
