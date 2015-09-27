@@ -82,6 +82,28 @@ sum'n'count x = (sumd x', count x') where
 
 
 
+integration :: (Double -> Double) -> Double -> Double -> Double
+integration f a b = sum $ map f list where
+    list = a + (a+b)/1000 + (a+b)/1000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
