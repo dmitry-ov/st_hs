@@ -16,7 +16,7 @@ integration :: (Double -> Double) -> Double -> Double -> Double
 integration f a b | a > b = (-1)*trap b a
                   | a < b = trap a b
                   | a == b = 0  where
-    trap a b = (b-a)/n * ((f(a) + f(b))/2 + (sum $ map f list))
+    trap a b = (b-a)/n * ((f a + f b)/2 + (sum $ map f list))
     dx = (b-a)/n
     n = 1000
     list = [a+dx, a + dx + dx .. b - dx]
