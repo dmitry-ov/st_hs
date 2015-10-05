@@ -1,10 +1,23 @@
---Реализуйте функцию seqA, находящую элементы следующей рекуррентной последовательности
+--Реализуйте класс типов Printable, предоставляющий один метод toString — функцию одной переменной,
+--которая преобразует значение типа, являющегося представителем Printable, в строковое представление.
+--
+--Сделайте типы данных Bool и () представителями этого класса типов, обеспечив следующее поведение:
+--
+--GHCi> toString True
+--"true"
+--GHCi> toString False
+--"false"
+--GHCi> toString ()
+--"unit type"
 
---a0=1; a1=2; a2=3; ak+3=ak+2+ak+1−2ak.
-
---seqA 301
---1276538859311178639666612897162414
---Попытайтесь найти эффективное решение.
 
 
+class Printable a where
+    toString :: a -> String
 
+instance Printable Bool where
+    toString False = "false"
+    toString True = "true"
+
+instance Printable () where
+    toString () = "unit type"
