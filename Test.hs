@@ -10,6 +10,14 @@
 --GHCi> toString ()
 --"unit type"
 
+--Сделайте тип пары представителем класса типов Printable, реализованного вами в предыдущей задаче,
+-- обеспечив следующее поведение:
+--
+--GHCi> toString (False,())
+--"(false,unit type)"
+--GHCi> toString (True,False)
+--"(true,false)"
+--
 
 
 class Printable a where
@@ -21,3 +29,7 @@ instance Printable Bool where
 
 instance Printable () where
     toString () = "unit type"
+
+instance (Printable a, Printable b) => Printable (a, b) where
+    toString (a, b) = "(" ++toString (a) ++ "," ++ toString (b) ++ ")"
+
