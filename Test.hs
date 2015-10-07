@@ -1,25 +1,3 @@
---Реализуйте класс типов Printable, предоставляющий один метод toString — функцию одной переменной,
---которая преобразует значение типа, являющегося представителем Printable, в строковое представление.
---
---Сделайте типы данных Bool и () представителями этого класса типов, обеспечив следующее поведение:
---
---GHCi> toString True
---"true"
---GHCi> toString False
---"false"
---GHCi> toString ()
---"unit type"
-
---Сделайте тип пары представителем класса типов Printable, реализованного вами в предыдущей задаче,
--- обеспечив следующее поведение:
---
---GHCi> toString (False,())
---"(false,unit type)"
---GHCi> toString (True,False)
---"(true,false)"
---
-
-
 class Printable a where
     toString :: a -> String
 
@@ -33,3 +11,12 @@ instance Printable () where
 instance (Printable a, Printable b) => Printable (a, b) where
     toString (a, b) = "(" ++toString (a) ++ "," ++ toString (b) ++ ")"
 
+
+a = 127.2
+b = 24.1
+c = 20.1
+d = 2
+
+ip = show a ++ show b ++ show c ++ show d
+
+--"127.224.120.12"
