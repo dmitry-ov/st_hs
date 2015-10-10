@@ -46,37 +46,19 @@ sum2 (x:xs) (y:ys) = (x+y) : sum2 xs ys
 --GHCi> groupElems [1,2,3,2,4]
 --[[1],[2],[3],[2],[4]]
 
-groupElems :: Num a => [a] -> [[a]]
-groupElems [] = []
-groupElems (x:y:xys) = if x /=y
-                       then [x] ++ groupElems(y:xys)
-                       else addGroup [] x (x:y:xys) where
-   -- (group, listOthers)
-    addGroup group x []
-    addGroup group x x:xs = addGroup (group + head list) x xs
+groupElems :: Eq a => [a] -> [[a]]
+groupElems [] = [[]]
+groupElems list = help [[]] list
 
 
+help accG [] = accG
+help accG list = if (head list == (head $ tail list))
+                 then help (accG ++ [head list]) (tail list)
+                 else help (accG ++ fst(tuple)) snd(tuple) where
+                
+                tuple = count [] (head list) (tail list)) 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                count acc x list = if x `elem` list
+                                   then count (acc ++ [x]) x (tail list)
+                                   else ([acc], list)
 
