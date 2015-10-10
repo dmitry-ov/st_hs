@@ -19,6 +19,10 @@ instance (Printable a, Printable b) => Printable (a, b) where
 --Класса типов KnownToGorkAndMork является расширением обоих этих классов,
 --предоставляя дополнительно метод stompOrStab:
 
+
+--Пусть существуют два класса типов KnownToGork и KnownToMork,
+--которые предоставляют методы stomp (stab) и doesEnrageGork (doesEnrageMork) соответственно:
+
 class KnownToGork a where
     stomp :: a -> a
     doesEnrageGork :: a -> Bool
@@ -27,9 +31,9 @@ class KnownToMork a where
     stab :: a -> a
     doesEnrageMork :: a -> Bool
 
-
 class (KnownToGork a, KnownToMork a) => KnownToGorkAndMork a where
     stompOrStab :: a -> a
-    stompOrStab a | doesEnrageGork a = stab a
-                  | doesEnrageMork a = stomp a
-                  | (False == doesEnrageGork a) && (False == (doesEnrageMork a))  = a
+    stompOrStab a | (doesEnrageGork a, doesEnrageMork a) == (True, False)  = stab a
+                  | (doesEnrageGork a, doesEnrageMork a) == (False, True)  = stomp a
+                  | (doesEnrageGork a, doesEnrageMork a) == (True, True)   = stomp (stab a)
+                  | (doesEnrageGork a, doesEnrageMork a) == (False, False) = a
