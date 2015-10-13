@@ -122,50 +122,26 @@ max3 a b c =  zipWith (max) c $ zipWith (max) a b
 
 
 --perms [1,2,3]
-perms :: [a] -> [[a]]
-perms x = permutations x
+--perms :: [a] -> [[a]]
+--perms x = permutations x
 
--- > permutations "abc" == ["abc","bac","cba","bca","cab","acb"]
-
-permutations            :: [a] -> [[a]]
-permutations xs0        =  xs0 : perms xs0 []
-  where
-    perms []     _  = []
-    perms (t:ts) is = foldr interleave (perms ts (t:is)) (permutations is)
-      where interleave    xs     r = let (_,zs) = interleave' id xs r in zs
-            interleave' _ []     r = (ts, r)
-            interleave' f (y:ys) r = let (us,zs) = interleave' (f . (y:)) ys r
-                                     in  (y:us, f (t:y:us) : zs)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+--permutations "abc" == ["abc","bac","cba","bca","cab","acb"]
+--
+--permutations            :: [a] -> [[a]]
+--permutations xs0        =  xs0 : perms xs0 []
+--  where
+--    perms []     _  = []
+--    perms (t:ts) is = foldr interleave (perms ts (t:is)) (permutations is)
+--      where interleave    xs     r = let (_,zs) = interleave' id xs r in zs
+--            interleave' _ []     r = (ts, r)
+--            interleave' f (y:ys) r = let (us,zs) = interleave' (f . (y:)) ys r
+--                                     in  (y:us, f (t:y:us) : zs)
+--
+--
+--zipWith
+--ю fibStream,
+--
+--[0,1,1,2,3,5,8,13,21,34]
+--
+fibStream = 0 : 1 : zipWith (+) fibStream (tail fibStream)
+fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
