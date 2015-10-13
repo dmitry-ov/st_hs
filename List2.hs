@@ -6,16 +6,11 @@ data Odd = Odd Integer
   deriving (Eq, Show)
 
 instance Enum (Odd) where
-    succ x = x + 2
-    pred x = x - 2
+    succ (Odd n) = Odd (n + 2)
+    pred (Odd n) = Odd (n - 2)
 
-    toEnum (Odd n)
-                | n mod 2 == 0  = n
-                | otherwise     = error "error. not odd"
-    fromEnum (Odd n)
-                | n mod 2 == 0  = n
-                | otherwise     = error "error. not odd"
-
+    toEnum (Odd n) = n
+    fromEnum (Odd n) = n
 
 
 addEven :: Odd -> Integer -> Odd
