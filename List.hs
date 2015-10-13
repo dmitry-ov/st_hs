@@ -1,6 +1,7 @@
 module List where
 
 import Data.Char
+
 --import Data.List
 
 --GHCi> nTimes 42 3
@@ -108,5 +109,63 @@ squares'n'cubes= \list -> collect [] list where
                     g = (^3)
                     collect acc [] = acc
                     collect acc (x:xs) = collect (acc ++ [f x] ++ [g x]) xs
+
+
+
+--delAllUpper "Abc IS not ABC"
+delAllUpper :: String -> String
+delAllUpper = \string -> unwords . filter (or . map isLower)  $ words $ string
+
+
+max3 :: Ord a => [a] -> [a] -> [a] -> [a]
+max3 a b c =  zipWith (max) c $ zipWith (max) a b
+
+
+--perms [1,2,3]
+perms :: [a] -> [[a]]
+perms x = permutations x
+
+-- > permutations "abc" == ["abc","bac","cba","bca","cab","acb"]
+
+permutations            :: [a] -> [[a]]
+permutations xs0        =  xs0 : perms xs0 []
+  where
+    perms []     _  = []
+    perms (t:ts) is = foldr interleave (perms ts (t:is)) (permutations is)
+      where interleave    xs     r = let (_,zs) = interleave' id xs r in zs
+            interleave' _ []     r = (ts, r)
+            interleave' f (y:ys) r = let (us,zs) = interleave' (f . (y:)) ys r
+                                     in  (y:us, f (t:y:us) : zs)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
