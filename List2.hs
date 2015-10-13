@@ -5,12 +5,17 @@ module List2 where
 data Odd = Odd Integer
   deriving (Eq, Show)
 
-instance Enum (Odd) where
+instance Enum Odd where
+--    succ :: a -> a
+--    pred :: a -> a
+--    toEnum :: Int -> a
+--    fromEnum :: a -> Int
+
     succ (Odd n) = Odd (n + 2)
     pred (Odd n) = Odd (n - 2)
 
-    toEnum (Odd n) = n
-    fromEnum (Odd n) = n
+    toEnum (Odd n) = if (mod n 2) == 1 then (Odd n) else error "error, not odd"
+--    fromEnum (Odd ) = (Odd)
 
 
 addEven :: Odd -> Integer -> Odd
