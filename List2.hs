@@ -29,3 +29,4 @@ addEven (Odd n) m | m `mod` 2 == 0 = Odd (n + m)
 --GHCi> succ $ Odd (-100000000000003)
 --Odd (-100000000000001)
 
+

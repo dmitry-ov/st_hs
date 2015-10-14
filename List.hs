@@ -145,3 +145,53 @@ max3 a b c =  zipWith (max) c $ zipWith (max) a b
 --
 fibStream = 0 : 1 : zipWith (+) fibStream (tail fibStream)
 fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
+
+--
+--concatList через foldr
+--
+--GHCi> concatList [[1,2],[],[3]]
+--[1,2,3]
+
+concatList l = foldr (++) [] l
+
+
+len [] = 0
+len (x:xs)= 1 + len xs
+
+
+
+--GHCi> sumOdd [2,5,30,37]
+--42
+sumOdd :: [Integer] -> Integer
+sumOdd = foldr (\x s -> if (x `mod` 2 ==1) then x + s else s) 0
+
+
+l x = (foldr (-) x [2,1,5] , foldl (-) x [2,1,5])
+
+
+--meanList [1,2,3,4]
+--2.5
+
+meanList l = fst pair / snd pair where pair = foldr (\x (s,c) -> (x+s, 1+c ))  (0, 0) l
+
+
+--GHCi> evenOnly [1..10]
+--[2,4,6,8,10]
+--
+--
+evenOnly :: [a] -> [a]
+evenOnly list = fst pair where
+    pair = foldr f ([],(length list) ) list
+    f x (acc, p) | even p    = (x:acc, pred p)
+                 | otherwise = (acc, pred p )
+
+
+
+
+
+
+
+
+
+
+
