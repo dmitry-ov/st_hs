@@ -181,9 +181,24 @@ meanList l = fst pair / snd pair where pair = foldr (\x (s,c) -> (x+s, 1+c ))  (
 --
 evenOnly :: [a] -> [a]
 evenOnly list = fst pair where
-    pair = foldr f ([],(length list) ) list
-    f x (acc, p) | even p    = (x:acc, pred p)
-                 | otherwise = (acc, pred p )
+    pair = foldl f ([], False) list
+    f (acc, p) x | p         = (acc ++ [x], False)
+                 | otherwise = (acc, True )
+
+
+--evenOnly' list = reverse . fst . foldl (\(a, t) x -> if t then (x : a, not t) else (a, not t)) ([], False)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
