@@ -14,14 +14,15 @@ instance Enum Odd where
     succ (Odd n) = Odd (n + 2)
     pred (Odd n) = Odd (n - 2)
 
-    toEnum (Odd n) = if (mod n 2) == 1 then (Odd n) else error "error, not odd"
---    fromEnum (Odd ) = (Odd)
+    toEnum n = if (mod n 2) == 1 then (Odd n) else error "error, not odd"
+    fromEnum (Odd n) =  n
 
 
-addEven :: Odd -> Integer -> Odd
-addEven (Odd n) m | m `mod` 2 == 0 = Odd (n + m)
-                  | otherwise      = error "addEven: second parameter cannot be odd"
 
+--addEven :: Odd -> Integer -> Odd
+--addEven (Odd n) m | m `mod` 2 == 0 = Odd (n + m)
+--                  | otherwise      = error "addEven: second parameter cannot be odd"
+--
 
 
 --Сделайте этот типа представителем класса типов Enum.
