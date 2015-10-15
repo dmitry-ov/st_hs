@@ -14,7 +14,7 @@ instance Enum Odd where
     succ (Odd n) = Odd (n + 2)
     pred (Odd n) = Odd (n - 2)
 
-    toEnum n = if (mod n 2) == 1 then (Odd n) else error "error, not odd"
+    toEnum n = if odd n then (Odd n) else error "error, not odd"
     fromEnum (Odd n) =  n
 
 
