@@ -1,8 +1,7 @@
 module List where
 
 import Data.Char
-
---import Data.List
+import Data.List
 
 --GHCi> nTimes 42 3
 --[42,42,42]
@@ -180,22 +179,35 @@ meanList l = fst pair / snd pair where pair = foldr (\x (s,c) -> (x+s, 1+c ))  (
 --
 --
 evenOnly :: [a] -> [a]
-evenOnly list = fst pair where
-    pair = foldl f ([], False) list
+evenOnly list = fst $ foldl f ([], False) list where 
     f (acc, p) x | p         = (acc ++ [x], False)
                  | otherwise = (acc, True )
 
 
---evenOnly' list = reverse . fst . foldl (\(a, t) x -> if t then (x : a, not t) else (a, not t)) ([], False)
+-- evenOnly' list = reverse . fst . foldl (\(a, t) x -> if t then (x : a, not t) else (a, not t)) ([], False)
+
+
+-- длина списка с использованием unfolder
+lengthList :: [a] -> Int
+lengthList = foldr (\x y -> 1 + y) 0
+
+lastElem :: [a] -> a
+lastElem = foldl1 (\x y -> y)
 
 
 
 
+--Используя unfoldr, реализуйте функцию, которая возвращает в обратном
+--алфавитном порядке список символов, попадающих в
+--заданный парой диапазон. Попадание символа
+--x в диапазон пары (a,b) означает, что x >= a и x <= b.
 
+--GHCi> revRange ('a','z')
+--"zyxwvutsrqponmlkjihgfedcba"
 
-
-
-
+revRange :: (Char,Char) -> [Char]
+revRange (a,b) = reverse $ unfoldr g a where
+        g = (\x -> if (ord x) > (ord b) then Nothing else Just (x, chr(ord(x)+1)))
 
 
 
