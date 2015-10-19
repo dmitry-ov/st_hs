@@ -1,7 +1,5 @@
 module List2 where
 
---Пусть задан тип Odd нечетных чисел следующим образом:
-
 data Odd = Odd Integer
   deriving (Eq, Show)
 
@@ -14,8 +12,8 @@ instance Enum Odd where
     succ (Odd n) = Odd (n + 2)
     pred (Odd n) = Odd (n - 2)
 
-    toEnum n = if odd n then (Odd n) else error "error, not odd"
-    fromEnum (Odd n) =  n
+    toEnum n = if odd n then (Odd $ toInteger n) else error "error, not odd"
+    fromEnum (Odd n) = toInteger n
 
 
 

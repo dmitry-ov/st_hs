@@ -178,13 +178,37 @@ meanList l = fst pair / snd pair where pair = foldr (\x (s,c) -> (x+s, 1+c ))  (
 --[2,4,6,8,10]
 --
 --
-evenOnly :: [a] -> [a]
-evenOnly list = fst $ foldl f ([], False) list where 
-    f (acc, p) x | p         = (acc ++ [x], False)
-                 | otherwise = (acc, True )
+--Попробуйте добиться того, чтобы реализованная вами в прошлом задании функция evenOnly позволяла работать и с бесконечными списками.
+--То есть, например, запрос на первые три элемента бесконечного списка, возвращаемого этой функцией, примененной к списку всех натуральных чисел, должен завершаться:
+--
+--GHCi> take 3 (evenOnly [1..])
+--[2,4,6]
+--
+--1
+--evenOnly :: [a] -> [a]
+--2
+--evenOnly = undefined
+
+
+--evenOnly :: [a] -> [a]
+--evenOnly list = foldr f ([], False) list where
+--    f x (acc, p)  | p         = (acc ++ [x], False)
+--                  | otherwise = (acc, True )
 
 
 -- evenOnly' list = reverse . fst . foldl (\(a, t) x -> if t then (x : a, not t) else (a, not t)) ([], False)
+
+
+--evenOnly [1..] 1
+
+evenOnly :: [a] -> [a]
+evenOnly list = evens list 1 where
+    evens [] n = []
+    evens (x:xs) n = if even n then (x : evens xs (n+1)) else evens xs (n+1)
+
+
+--Миша Лиманский
+--evenOnly xs = foldr (\(a,b) r -> if (even b) then a:r else r) [] (zip xs [1..])
 
 
 -- длина списка с использованием unfolder
@@ -208,6 +232,16 @@ lastElem = foldl1 (\x y -> y)
 revRange :: (Char,Char) -> [Char]
 revRange (a,b) = reverse $ unfoldr g a where
         g = (\x -> if (ord x) > (ord b) then Nothing else Just (x, chr(ord(x)+1)))
+
+
+
+
+
+
+
+
+
+
 
 
 
