@@ -4,23 +4,21 @@ data Odd = Odd Integer
   deriving (Eq, Show)
 
 instance Enum Odd where
---    succ :: a -> a
---    pred :: a -> a
---    toEnum :: Int -> a
---    fromEnum :: a -> Int
 
     succ (Odd n) = Odd (n + 2)
     pred (Odd n) = Odd (n - 2)
 
-    toEnum n = if odd n then (Odd $ toInteger n) else error "error, not odd"
-    fromEnum (Odd n) = toInteger n
+    toEnum n = if odd n then (Odd $ fromIntegral n) else error "error, not odd"
+    fromEnum (Odd n) = fromIntegral n
 
 
 
---addEven :: Odd -> Integer -> Odd
---addEven (Odd n) m | m `mod` 2 == 0 = Odd (n + m)
---                  | otherwise      = error "addEven: second parameter cannot be odd"
---
+
+
+addEven :: Odd -> Integer -> Odd
+addEven (Odd n) m | m `mod` 2 == 0 = Odd (n + m)
+                  | otherwise      = error "addEven: second parameter cannot be odd"
+
 
 
 --Сделайте этот типа представителем класса типов Enum.
