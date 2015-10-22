@@ -83,31 +83,126 @@ cmp Error Error = EQ
 cmp Warning Warning = EQ
 
 
+--
+--
+--Пусть объявлен следующий тип данных:
+--
+--data Result = Fail | Success
+--
+
+--И допустим определен некоторый тип данных SomeData и некоторая функция
+
+--doSomeWork :: SomeData -> (Result,Int)
+
+--возвращающая результат своей работы и либо код ошибки в случае неудачи, либо 0 в случае успеха.
+--Определите функцию processData, которая вызывает doSomeWork и
+--возвращает строку "Success" в случае ее успешного завершения, либо строку "Fail: N" в случае неудачи, где N — код ошибки.
+
+--processData :: SomeData -> String
+--processData someData = case doSomeWork someData of
+--                 (Success, 0) -> "Success"
+--                 (Fail, n) -> "Fail: " ++ show n
+
+
+--data Shape = Circle Double | Rectangle Double Double
+--
+--area :: Shape -> Double
+--area shape = case shape of
+--              (Circle r) -> pi*r^2
+--              (Rectangle x y) -> x*y
+--
 
 
 
 
 
 
+--В одном из прошлых заданий мы встречали тип Result и функцию doSomeWork:
+--
+--data Result = Fail | Success
+--
+--doSomeWork :: SomeData -> (Result,Int)
+
+--Функция doSomeWork возвращала результат своей работы и либо код ошибки в
+--случае неудачи, либо 0 в случае успеха. Такое определение функции
+--не является наилучшим, так как в случае успеха мы вынуждены
+--возвращать некоторое значение, которое не несет никакой смысловой нагрузки.
+--
+--Используя функцию doSomeWork, определите функцию doSomeWork' так,
+--чтобы она возвращала код ошибки только в случае
+--неудачи. Для этого необходимо определить тип Result'. Кроме того, определите instance Show для Result' так,
+--чтобы show возвращал "Success" в случае успеха и "Fail: N" в случае неудачи, где N — код ошибки.
+--
+
+--data Result = Fail | Success
+--data Result' = Result Int
+--
+--instance Show Result' where
+--    show (Result n) = case n of
+--                       0 -> "Success"
+--                       otherwise -> "Fail: " ++ show n
+--
+--doSomeWork' :: SomeData -> Result'
+--doSomeWork' someData = case doSomeWork someData of
+--                          (Success, 0)  -> (Result 0)
+--                          (Fail, n )  -> (Result n)
+--
+
+
+
+data Shape = Circle Double | Rectangle Double Double
+
+square :: Double -> Shape
+square a = Rectangle a a
+
+isSquare :: Shape -> Bool
+isSquare (Rectangle a b) = a == b
+isSquare _ = False
+
+
+
+--Целое число можно представить как список битов со знаком.
+--
+--Реализуйте функции сложения и умножения для таких целых чисел,
+--считая, что младшие биты идут в начале списка, а старшие — в конце.
+
+data Bit = Zero | One  deriving Show
+data Sign = Minus | Plus deriving Show
+data Z = Z Sign [Bit] deriving Show
+
+
+--
+--add :: Z -> Z -> Z
+--add a b = convertToInt(a) + convertToInt(b)
+--
+--mul :: Z -> Z -> Z
+--mul = convertToInt(a) * convertToInt(b)
+--
+--
+--convertToInt :: Z -> Int
+--convertToInt Z Sign [Bit] = ()
+
+
+--convertToZ :: Int -> Z
+--convertToZ a =
 
 
 
 
+xor a b = if a == b
+          then 0
+          else 1
 
+and' 1 1 = 1 -- `and` is a function in Prelude.
+and' _ _ = 0
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+bitsum0 :: [Int] -> [Int] -> [Int]
+bitsum0 xs ys
+    | (sum xs) == 0 = ys
+    | (sum ys) == 0 = xs
+    | otherwise = bitsum0 low (0:high)
+        where low = zipWith xor xs ys
+              high = zipWith and' xs ys
 
 
 
