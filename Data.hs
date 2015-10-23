@@ -186,47 +186,26 @@ data Z = Z Sign [Bit] deriving Show
 --convertToZ :: Int -> Z
 --convertToZ a =
 
-
-
-
-xor a b = if a == b
-          then 0
-          else 1
-
-and' 1 1 = 1 -- `and` is a function in Prelude.
-and' _ _ = 0
-
-bitsum0 :: [Int] -> [Int] -> [Int]
-bitsum0 xs ys
-    | (sum xs) == 0 = ys
-    | (sum ys) == 0 = xs
-    | otherwise = bitsum0 low (0:high)
-        where low = zipWith xor xs ys
-              high = zipWith and' xs ys
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+--
+--
+--
+--xor a b = if a == b
+--          then 0
+--          else 1
+--
+--and' 1 1 = 1 -- `and` is a function in Prelude.
+--and' _ _ = 0
+--
+--bitsum0 :: [Int] -> [Int] -> [Int]
+--bitsum0 xs ys
+--    | (sum xs) == 0 = ys
+--    | (sum ys) == 0 = xs
+--    | otherwise = bitsum0 low (0:high)
+--        where low = zipWith xor xs ys
+--              high = zipWith and' xs ys
+--
+--
+--infixl 1 &
+--
+--(&) :: a -> (a-> b) -> b
+--x & f = f x
