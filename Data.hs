@@ -171,17 +171,45 @@ data Sign = Minus | Plus deriving Show
 data Z = Z Sign [Bit] deriving Show
 
 
---
---add :: Z -> Z -> Z
---add a b = convertToInt(a) + convertToInt(b)
---
---mul :: Z -> Z -> Z
---mul = convertToInt(a) * convertToInt(b)
---
---
+add :: Z -> Z -> Z
+add a b = undefined
+
+mul :: Z -> Z -> Z
+mul = undefined
+
+
+
+z2i (Z Minus xs) = (-1) * (num xs)
+z2i (Z Plus xs) = num  xs
+
+num :: [Bit] -> Int
+num xs = binList2Int $ bit2ListInt xs where
+
+        bit2ListInt :: [Bit] -> [Int]
+        bit2ListInt list = b2iList [] list
+
+        b2iList :: [Int] -> [Bit] -> [Int]
+        b2iList acc [] = acc
+        b2iList acc (x:xs) = b2iList (acc ++ [(change x)]) xs
+
+        change Zero = 0
+        change One = 1
+
+        binList2Int :: [Int] -> Int
+        binList2Int list =  bi2i 0 0 list
+
+        bi2i :: Int -> Int -> [Int] -> Int
+        bi2i acc _ [] = acc
+        bi2i acc n (x:xs) = bi2i (acc + x * (2^n)) (n+1) xs
+
+
+
+i2z = undefined
+
+
+
 --convertToInt :: Z -> Int
 --convertToInt Z Sign [Bit] = ()
-
 
 --convertToZ :: Int -> Z
 --convertToZ a =
