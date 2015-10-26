@@ -170,17 +170,15 @@ data Bit = Zero | One  deriving Show
 data Sign = Minus | Plus deriving Show
 data Z = Z Sign [Bit] deriving Show
 
-
 add :: Z -> Z -> Z
-add a b = undefined
+add = (\a b -> intToZ  $ zToInt a + zToInt b)
 
 mul :: Z -> Z -> Z
-mul = undefined
+mul =(\a b -> intToZ  $ zToInt a * zToInt b)
 
 
-
-z2i (Z Minus xs) = (-1) * (num xs)
-z2i (Z Plus xs) = num  xs
+zToInt (Z Minus xs) = (-1) * (num xs)
+zToInt (Z Plus xs) = num  xs
 
 num :: [Bit] -> Int
 num xs = binList2Int $ bit2ListInt xs where
@@ -203,8 +201,23 @@ num xs = binList2Int $ bit2ListInt xs where
         bi2i acc n (x:xs) = bi2i (acc + x * (2^n)) (n+1) xs
 
 
+intToZ n | n == 0 =  Z Plus [Zero]
+         | n < 0  =  Z Minus (i2z(n))
+         | n > 0 = Z Plus (i2z(n))
 
-i2z = undefined
+
+i2z i = map change' $ toBinList i where
+        change' 0 = Zero
+        change' 1 = One
+
+
+toBinList :: Int -> [Int]
+toBinList 0 = [0]
+toBinList n = reverse $ tail $ toBin n  where
+                toBin 0 = [0]
+                toBin n | n `mod` 2 == 1 = toBin (n `div` 2) ++ [1]
+                        | n `mod` 2 == 0 = toBin (n `div` 2) ++ [0]
+
 
 
 
