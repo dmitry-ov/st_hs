@@ -19,8 +19,10 @@ zToInt (Z Plus xs) = num  xs
 
 num :: [Bit] -> Int
 num xs = binList2Int $ bit2ListInt xs where
+        bit2ListInt :: [Bit] -> [Int]
         bit2ListInt list = b2iList [] list
 
+        b2iList :: [Int] -> [Bit] -> [Int]
         b2iList acc [] = acc
         b2iList acc (x:xs) = b2iList (acc ++ [(change x)]) xs
 
