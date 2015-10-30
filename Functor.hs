@@ -41,14 +41,8 @@ data Tree a = Leaf (Maybe a) | Branch (Tree a) (Maybe a) (Tree a) deriving Show
 --Leaf (Just ["a","b"])
 
 instance Functor Tree where
-    fmap f (Leaf Nothing) = Leaf (f Nothing)
-    fmap f (Leaf (Just x)) = Leaf (f (Just x))
-    fmap f (Branch l Nothing r) = Branch (fmap f l) (f Nothing) (fmap f r)
-    fmap f (Branch l (Just x) r) = Branch (fmap f l) (f (Just x)) (fmap f r)
-
-
-
-
+    fmap f (Leaf a) = Leaf $ fmap f a
+    fmap f (Branch l a r) = Branch (fmap f l) (fmap f a) (fmap f r)
 
 
 

@@ -30,6 +30,6 @@ listToMaybe a = if length a >= 1
                 else Nothing
 
 
-eitherToMaybe :: Either a b-> Maybe a
+eitherToMaybe :: Either a b -> Maybe a
 eitherToMaybe (Left a) = Just a
 eitherToMaybe (Right b) = Nothing
