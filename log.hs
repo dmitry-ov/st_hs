@@ -32,8 +32,7 @@ execLoggers x f g =  Log list gx where
 --GHCi> execLoggers 3 add1Log mult2Log
 --Log ["added one","multiplicated by 2"] 8
 
-
-
-
+returnLog :: a -> Log a
+returnLog = Log []
 
 
