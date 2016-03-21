@@ -19,8 +19,8 @@
 -- + Строка, которая подается на вход, должна разбивать по символу '\n' на список строк,
 --каждая из которых имеет вид X = Y. Если входная строка не
 --имеет указанный вид, то функция должна возвращать ParsingError.
-
 --Если указаны не все поля, то возвращается IncompleteDataError.
+
 --Если в поле age указано не число, то возвращается IncorrectDataError str, где str — содержимое поля age.
 --Если в строке присутствуют лишние поля, то они игнорируются.
 --Time Limit: 5 seconds
@@ -32,37 +32,35 @@ data Person = Person { firstName :: String, lastName :: String, age :: Int } der
 
 
 --"firstName = John\nlastName = Connor\nage = 30"
+
 parsePerson :: String -> Either Error Person
 parsePerson l = if not (hasEq $ lines l)
                 then Left ParsingError
                 else
-                    if (3 /= (length $ lines l))
+--                    if (3 /= (length $ lines l))
+--                    then Left IncompleteDataError
+--                    else
+                    if not (hasFields l)
                     then Left IncompleteDataError
                     else
-                        if not (hasFields $ lines l)
-                        then IncompleteDataError
-                        else
-
---
+                        if
 
 
---  filter(/= '=') $ lines "firstName = John\nlastName = Connor\nage = 30"
+checkAge (Just a) = read a::Int
 
---map (filter(/= '=')) (lines "firstName = John\nlastName = Connor\nage = 30")  => ["firstName  John","lastName  Connor","age  30"]
-
-
---  Right Person{age = 1, firstName = "sdd", lastName = "adddfg"}
+ageString l = lookup "age" $ list2HashList l
 
 
---not (findEq (lines l !! 0)  &&  findEq (lines l !! 1) && findEq (lines l !! 2))
+hasFields :: String -> Bool
+hasFields l = if (length (checkFields l) == 0)
+              then True
+              else False
 
-hasFields :: [String] -> Bool
-hasFields l =
+checkFields l = filter (== Nothing) [lookup "firstName" $ list2HashList l, lookup "lastName" $ list2HashList l, lookup "age" $ list2HashList l]
 
-
-findName l = filter (== "firstName") l
-
-listToPairs l
+list2HashList :: String -> [(String, String)]
+list2HashList l = map l2h (lines l) where
+                  l2h str = (head $ words str, last $ words str)
 
 hasEq :: [String] -> Bool
 hasEq l = foldl1 (&&) (map findEq l)
