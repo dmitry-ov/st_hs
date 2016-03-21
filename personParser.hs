@@ -2,7 +2,7 @@
 --Реализуйте функцию parsePerson, которая разбирает строки вида
 --firstName = John\nlastName = Connor\nage = 30 и возвращает либо результат типа Person, либо ошибку типа Error.
 
--- + Строка, которая подается на вход, должна разбивать по символу '\n' на список строк,
+-- Строка, которая подается на вход, должна разбивать по символу '\n' на список строк,
 --каждая из которых имеет вид X = Y. Если входная строка не
 --имеет указанный вид, то функция должна возвращать ParsingError.
 --Если указаны не все поля, то возвращается IncompleteDataError.
@@ -11,7 +11,11 @@
 --Time Limit: 5 seconds
 --Memory Limit: 256 MB
 
+
+
+
 --"firstName = John\nlastName = Connor\nage = 30"
+--parsePerson  "firstName = John Smith\nlastName = Connor\nage = 30\nasde=as11"
 
 import Data.Char
 
@@ -22,15 +26,15 @@ parsePerson :: String -> Either Error Person
 parsePerson l = if not (hasEq $ lines l)
                 then Left ParsingError
                 else
-                    if (3 /= (length $ lines l))
-                    then Left IncompleteDataError
-                    else
+--                    if (3 /= (length $ lines l))
+--                    then Left IncompleteDataError
+--                    else
                     if not (hasFields l)
                     then Left IncompleteDataError
                     else
                         if not (thisDigit $ strJust $ ageString l)
                         then Left (IncorrectDataError (strJust (ageString l)))
-                        else Right Person{ firstName = strJust $ lookup "firstName" $ list2HashList l, lastName = strJust $ lookup "lastName" $ list2HashList l, age = read (strJust $ ageString l)::Int}
+                        else Right (Person{ firstName = strJust $ lookup "firstName" $ list2HashList l, lastName = strJust $ lookup "lastName" $ list2HashList l, age = read (strJust $ ageString l)::Int})
 
 
 thisDigit xs = all isDigit xs
@@ -49,7 +53,8 @@ checkFields l = filter (== Nothing) [lookup "firstName" $ list2HashList l, looku
 
 list2HashList :: String -> [(String, String)]
 list2HashList l = map l2h (lines l) where
-                  l2h str = (head $ words str, last $ words str)
+                  l2h str = (head $ words str, glueString str) where
+                  glueString list = (tail $ tail $ words $ list)
 
 hasEq :: [String] -> Bool
 hasEq l = foldl1 (&&) (map findEq l)
