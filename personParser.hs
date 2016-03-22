@@ -36,6 +36,8 @@ parsePerson l = if not (hasEq $ lines l)
                         then Left (IncorrectDataError (strJust (ageString l)))
                         else Right (Person{ firstName = strJust $ lookup "firstName" $ list2HashList l, lastName = strJust $ lookup "lastName" $ list2HashList l, age = read (strJust $ ageString l)::Int})
 
+sumStrings acc [] = acc
+sumStrings acc (x:xs) = sumStrings (acc ++ x ++" ") xs
 
 thisDigit xs = all isDigit xs
 
@@ -53,8 +55,7 @@ checkFields l = filter (== Nothing) [lookup "firstName" $ list2HashList l, looku
 
 list2HashList :: String -> [(String, String)]
 list2HashList l = map l2h (lines l) where
-                  l2h str = (head $ words str, glueString str) where
-                  glueString list = (tail $ tail $ words $ list)
+                  l2h str = (head $ words str, init $ sumStrings [] (drop 2 (words str)))
 
 hasEq :: [String] -> Bool
 hasEq l = foldl1 (&&) (map findEq l)
