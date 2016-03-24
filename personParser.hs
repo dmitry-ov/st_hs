@@ -12,10 +12,9 @@
 --Memory Limit: 256 MB
 
 
-
-
---"firstName = John\nlastName = Connor\nage = 30"
---parsePerson  "firstName = John Smith\nlastName = Connor\nage = 30\nasde=as11"
+--parsePerson "firstName = John\nlastName = Connor\nage = 30"
+--parsePerson "firstName = John Smith\nlastName = Connor\nage = 30\nasde=as11"
+--parsePerson "firstName=Barbarian\nlastName=Conn On\nage=30"
 
 import Data.Char
 
@@ -26,9 +25,6 @@ parsePerson :: String -> Either Error Person
 parsePerson l = if not (hasEq $ lines l)
                 then Left ParsingError
                 else
---                    if (3 /= (length $ lines l))
---                    then Left IncompleteDataError
---                    else
                     if not (hasFields l)
                     then Left IncompleteDataError
                     else
@@ -55,7 +51,11 @@ checkFields l = filter (== Nothing) [lookup "firstName" $ list2HashList l, looku
 
 list2HashList :: String -> [(String, String)]
 list2HashList l = map l2h (lines l) where
-                  l2h str = (head $ words str, init $ sumStrings [] (drop 2 (words str)))
+                  l2h str = l2hM (buildPair str)
+                  buildPair str = ((take (findEqN str) str), (drop ((findEqN str)+1) str))
+                  l2hM p = if ((' ' == (last $ fst p)) && (' ' == (head $ snd p)))
+                           then (init $ fst p, tail $ snd p)
+                           else p
 
 hasEq :: [String] -> Bool
 hasEq l = foldl1 (&&) (map findEq l)
@@ -66,4 +66,13 @@ findEq [] = False
 findEq (x:xs) = if (x == '=')
                 then True
                 else findEq xs
+
+findEqN :: String -> Int
+findEqN l = findEqN' 0 l
+
+findEqN' :: Int -> String -> Int
+findEqN' acc [] = 0
+findEqN' acc (x:xs) = if (x == '=')
+                     then acc
+                     else findEqN' (acc+1) xs
 
