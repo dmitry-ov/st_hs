@@ -63,20 +63,18 @@ data Map k1 k2 v = Map [Entry k1 k2 v]  deriving Show
 --Map [Entry (0,0) "ORIGIN",Entry (800,0) "RIGHT CORNER"]
 --
 
-
 instance Functor (Entry k1 k2) where
     fmap f (Entry (k1, k2) v) = Entry (k1, k2) $ f v
 
 
 instance Functor (Map k1 k2) where
-    fmap f (Map xs) =  Map (map (fmap f) xs)
+    fmap f (Map xs) =  Map (map g xs) where g = fmap f
 
-
-
-
-
---Законы функторов
-fmap (f . g) xs = (fmap f . fmap g) xs
+{-Законы функторов. Их 2:
+(1)  fmap id xs = id xs
+(2)  fmap (f . g) xs = (fmap f . fmap g) xs
+гарантированно не меняется структура контейнера.
+-}
 
 
 
