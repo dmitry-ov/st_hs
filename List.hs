@@ -232,27 +232,3 @@ lastElem = foldl1 (\x y -> y)
 revRange :: (Char,Char) -> [Char]
 revRange (a,b) = reverse $ unfoldr g a where
         g = (\x -> if (ord x) > (ord b) then Nothing else Just (x, chr(ord(x)+1)))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
