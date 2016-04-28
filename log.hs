@@ -41,6 +41,7 @@ add1Log = toLogger (+1) "added one"
 mult2Log = toLogger (* 2) "multiplied by 2"
 
 
+
 returnLog :: a -> Log a
 returnLog xs = Log [] xs
 
@@ -66,6 +67,7 @@ instance Monad Log where
     return = returnLog
     (>>=) = bindLog
 --Используя return и >>=, определите функцию execLoggersList
+--
 
 execLoggersList :: a -> [a -> Log a] -> Log a
 execLoggersList a = foldl (>>=) (return a)
@@ -78,3 +80,18 @@ execLoggersList a = foldl (>>=) (return a)
 --
 --execLoggersList :: a -> [a -> Log a] -> Log a
 --execLoggersList = undefined
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
